@@ -1,4 +1,6 @@
 import { useState } from "react"
+import { StyledTodo } from "./styles/StyledTodo"
+import DeleteBtn from "./styles/DeleteBtn"
 
 export default function Todo({ id, value, isEditing, isDone, setTodos }) {
     const [newName, setNewName] = useState(value)
@@ -32,23 +34,26 @@ export default function Todo({ id, value, isEditing, isDone, setTodos }) {
     }
 
     return (
-        <li
+        <StyledTodo
             id={id}
             onDoubleClick={() => toggleEdit(id)}
         >
-            <input type="checkbox" checked={isDone} onChange={() => toggleDone(id)} />
-            {isEditing
-                ? 
-                <form onSubmit={(e) => editTodo(e, id)}>
-                    <input
-                        value={newName}
-                        onChange={handleChange}
-                    />
-                </form>
-                :
-                <div style={{textDecoration: isDone && 'line-through'}}>{value}</div>
-            }
-            <button onClick={() => deleteItem(id)}>Delete</button>
-        </li> 
+            <div>
+                <input type="checkbox" checked={isDone} onChange={() => toggleDone(id)} />
+                {isEditing
+                    ? 
+                    <form onSubmit={(e) => editTodo(e, id)}>
+                        <input
+                            value={newName}
+                            onChange={handleChange}
+                        />
+                    </form>
+                    :
+                    <div style={{textDecoration: isDone && 'line-through'}}>{value}</div>
+                }
+            </div>
+
+            <DeleteBtn onClick={() => deleteItem(id)} />
+        </StyledTodo> 
     )
 }

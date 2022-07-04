@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react"
-import styled from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
+import { GlobalStyles } from "./components/styles/GlobalStyles"
+import { LightTheme, DarkTheme } from "./components/styles/Themes"
 import Header from "./components/Header"
 import Todo from "./components/Todo"
 import Footer from "./components/Footer"
+
 
 const StyledApp = styled.div`
     display: flex;
     flex-direction: column;
     /* align-items: center; */
-    width: 680px;
+    width: 540px;
     margin: 3rem auto 0;
 `
 
@@ -21,6 +24,7 @@ const filterNames = {
 export default function App() {
     const [todos, setTodos] = useState(() => JSON.parse(localStorage.getItem('todos')) || [])
     const [filter, setFilter] = useState('All')
+
     console.log(todos)
     console.log(filter)
 
@@ -37,21 +41,28 @@ export default function App() {
     })
 
     return (
-        <StyledApp>
-            <Header
-                setTodos={setTodos}
-            />
-            
-            <section>
-                {todoElements}
-            </section>
+        <ThemeProvider theme={DarkTheme}>
+            <>
+                <GlobalStyles />
+                <StyledApp>
+                    <Header
+                        setTodos={setTodos}
+                    />
+                    
+                    <section>
+                        <ul>
+                            {todoElements}
+                        </ul>
+                    </section>
 
-            <Footer
-                filterNames={Object.keys(filterNames)}
-                setTodos={setTodos}
-                setFilter={setFilter}
-                todoCount={todos.length}
-            />
-        </StyledApp>
+                    <Footer
+                        filterNames={Object.keys(filterNames)}
+                        setTodos={setTodos}
+                        setFilter={setFilter}
+                        todoCount={todos.length}
+                    />
+                </StyledApp>
+            </>
+        </ThemeProvider>
     );
 }

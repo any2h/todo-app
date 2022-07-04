@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { nanoid } from 'nanoid'
+import { StyledHeader } from './styles/StyledHeader'
+import ThemeToggler from './ThemeToggler'
 
-export default function Header({setTodos, ...props}) {
+export default function Header({setTodos, theme, toggleTheme, ...props}) {
     const [todoName, setTodoName] = useState('')
 
     function handleChange(e) {
@@ -15,8 +17,12 @@ export default function Header({setTodos, ...props}) {
     }
 
     return (
-        <header>
-            <h1>T O D O</h1>
+        <StyledHeader>
+            <div>
+                <h1>T O D O</h1>
+                <ThemeToggler />
+            </div>
+            
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
@@ -25,6 +31,6 @@ export default function Header({setTodos, ...props}) {
                     onChange={handleChange}
                 />
             </form>
-        </header>
+        </StyledHeader>
     )
 }

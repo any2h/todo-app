@@ -1,3 +1,4 @@
+import { StyledFooter } from "./styles/StyledFooter"
 
 export default function Footer({ filterNames, setTodos, setFilter, todoCount}) {
 
@@ -18,10 +19,12 @@ export default function Footer({ filterNames, setTodos, setFilter, todoCount}) {
     }
 
     return (
-        <footer>
+        <StyledFooter>
             <span>{todoCount} items left</span>
-            {filterBtns}
+            <div>
+                {filterBtns}
+            </div>
             <button onClick={clearCompleted}>Clear Completed</button>
-        </footer>
+        </StyledFooter>
     )
 }
