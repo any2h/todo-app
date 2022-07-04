@@ -20,7 +20,7 @@ export default function Header({setTodos, theme, toggleTheme, ...props}) {
         <StyledHeader>
             <div>
                 <h1>T O D O</h1>
-                <ThemeToggler />
+                <ThemeToggler theme={theme} toggleTheme={toggleTheme} />
             </div>
             
             <form onSubmit={handleSubmit}>

@@ -5,7 +5,9 @@ export const StyledTodo = styled.li`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.125rem 1rem;
+    /* padding: 1.125rem 1rem; */
+    padding-inline: 1rem;
+    height: 65px;
     background-color: ${({theme}) => theme.bgColor};
 
     &:first-child {
@@ -26,10 +28,18 @@ export const StyledTodo = styled.li`
         /* align-items: center; */
         gap: 1rem;
 
-        > form input {
-            border: 0;
-            outline: 1px solid palegoldenrod;
-        }
+        > form {
+            display: flex;
+            align-items: center;
+
+            input {
+                position: absolute;
+                height: 100%;
+                border: 0;
+                /* outline: 1px solid palegoldenrod; */
+                box-shadow: inset 0 -1px 5px 0 hsl(237,14%,26%);
+            }
+        } 
     }
 
     > button {

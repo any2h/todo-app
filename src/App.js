@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import styled, { ThemeProvider } from 'styled-components'
 import { GlobalStyles } from "./components/styles/GlobalStyles"
 import { LightTheme, DarkTheme } from "./components/styles/Themes"
+import { useDarkMode } from "./components/useDarkMode"
 import Header from "./components/Header"
 import Todo from "./components/Todo"
 import Footer from "./components/Footer"
@@ -24,6 +25,8 @@ const filterNames = {
 export default function App() {
     const [todos, setTodos] = useState(() => JSON.parse(localStorage.getItem('todos')) || [])
     const [filter, setFilter] = useState('All')
+    const [theme, setTheme] = useDarkMode()
+    const themeMode = theme === 'light' ? LightTheme : DarkTheme
 
     console.log(todos)
     console.log(filter)
@@ -41,14 +44,16 @@ export default function App() {
     })
 
     return (
-        <ThemeProvider theme={DarkTheme}>
+        <ThemeProvider theme={themeMode}>
             <>
                 <GlobalStyles />
                 <StyledApp>
                     <Header
                         setTodos={setTodos}
+                        theme={theme}
+                        toggleTheme={setTheme}
                     />
-                    
+
                     <section>
                         <ul>
                             {todoElements}
