@@ -14,12 +14,4 @@ export const StyledFooter = styled.footer`
         display: flex;
         gap: .75rem;
     }
-
-    button {
-        font-weight: 700;
-    }
-
-    button:hover {
-        color: hsl(236, 33%, 92%);
-    }
 `

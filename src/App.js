@@ -7,13 +7,10 @@ import Header from "./components/Header"
 import Todo from "./components/Todo"
 import Footer from "./components/Footer"
 
-
 const StyledApp = styled.div`
-    display: flex;
-    flex-direction: column;
-    /* align-items: center; */
-    width: 540px;
-    margin: 3rem auto 0;
+    max-width: 588px;
+    margin: 0 auto;
+    padding-inline: 1.5rem;
 `
 
 const filterNames = {
@@ -45,29 +42,28 @@ export default function App() {
 
     return (
         <ThemeProvider theme={themeMode}>
-            <>
-                <GlobalStyles />
-                <StyledApp>
-                    <Header
-                        setTodos={setTodos}
-                        theme={theme}
-                        toggleTheme={setTheme}
-                    />
+            <GlobalStyles />
+            <StyledApp>
+                <Header
+                    setTodos={setTodos}
+                    theme={theme}
+                    toggleTheme={setTheme}
+                />
 
-                    <section>
-                        <ul>
-                            {todoElements}
-                        </ul>
-                    </section>
+                <section>
+                    <ul>
+                        {todoElements}
+                    </ul>
+                </section>
 
-                    <Footer
-                        filterNames={Object.keys(filterNames)}
-                        setTodos={setTodos}
-                        setFilter={setFilter}
-                        todoCount={todos.length}
-                    />
-                </StyledApp>
-            </>
+                <Footer
+                    filterNames={Object.keys(filterNames)}
+                    todos={todos}
+                    setTodos={setTodos}
+                    filter={filter}
+                    setFilter={setFilter}
+                />
+            </StyledApp>
         </ThemeProvider>
     );
 }

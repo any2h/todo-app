@@ -2,6 +2,10 @@ import styled from "styled-components";
 
 export const StyledHeader = styled.header`
 
+    h1 {
+        color: #fff;
+    }
+
     > div {
         display: flex;
         justify-content: space-between;
