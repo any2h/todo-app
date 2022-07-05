@@ -26,7 +26,7 @@ export default function Header({setTodos, theme, toggleTheme, ...props}) {
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
-                    placeholder="what needs to be done?"
+                    placeholder="What needs to be done?"
                     value={todoName}
                     onChange={handleChange}
                 />

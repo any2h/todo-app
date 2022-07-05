@@ -2,8 +2,9 @@ import { StyledFooter } from "./styles/StyledFooter"
 
 export default function Footer({ filterNames, todos, setTodos, filter, setFilter }) {
 
-    const filterBtns = filterNames.map(name =>
-        <button 
+    const filterBtns = filterNames.map((name, i) =>
+        <button
+            key={i}
             name={name}
             data-pressed={name === filter}
             onClick={(e) => setFilter(name)}

@@ -25,7 +25,6 @@ export const StyledTodo = styled.li`
     
     > div {
         display: flex;
-        /* align-items: center; */
         gap: 1rem;
 
         > form {
@@ -48,5 +47,52 @@ export const StyledTodo = styled.li`
 
     &:hover > button {
         opacity: 1;
+    }
+
+    .custom-checkbox {
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+    }
+
+    .custom-checkbox+label {
+        display: inline-flex;
+        align-items: center;
+        user-select: none;
+    }
+
+    .custom-checkbox+label::before {
+        content: '';
+        width: 1.375rem;
+        height: 1.375rem;
+        outline: 1px solid hsla(235.4, 31.7%, 92%, 0.3);
+        border-radius: 50%;
+        transition: all .15s ease-in-out;
+    }
+
+    .custom-checkbox+label::after {
+        position: relative;
+        content: '';
+        width: 1rem;
+        height: 1rem;
+        background-image: url('./images/icon-check.svg');
+        background-repeat: no-repeat;
+        background-size: 80%;
+        left: -44.5%;
+        bottom: -15%;
+        opacity: 0;
+        transition: all .15s ease-in-out;
+    }
+
+    .custom-checkbox:checked+label::before {
+        background-image: linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+    }
+
+    .custom-checkbox:checked+label::after {
+        opacity: 1;
+    }
+
+    .custom-checkbox:not(:disabled):not(:checked)+label:hover::before {
+        outline: 1px solid #8D82BE;
     }
 `

@@ -39,7 +39,8 @@ export default function Todo({ id, value, isEditing, isDone, setTodos }) {
             onDoubleClick={() => toggleEdit(id)}
         >
             <div>
-                <input type="checkbox" checked={isDone} onChange={() => toggleDone(id)} />
+                <input className="custom-checkbox" type="checkbox" checked={isDone}  />
+                <label onClick={() => toggleDone(id)}></label>
                 {isEditing
                     ? 
                     <form onSubmit={(e) => editTodo(e, id)}>
@@ -49,7 +50,7 @@ export default function Todo({ id, value, isEditing, isDone, setTodos }) {
                         />
                     </form>
                     :
-                    <div style={{textDecoration: isDone && 'line-through'}}>{value}</div>
+                    <div style={{textDecoration: isDone && 'line-through', opacity: isDone && '.5'}}>{value}</div>
                 }
             </div>
 
