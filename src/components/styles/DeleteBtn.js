@@ -2,6 +2,12 @@ import styled from "styled-components";
 
 const StyledDeleteBtn = styled.button`
     height: 18px;
+
+    & > svg:hover {
+        path {
+            fill: #8D82BE;
+        }
+    }
 `
 
 export default function DeleteBtn(props) {

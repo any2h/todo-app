@@ -7,7 +7,7 @@ export default function Footer({ filterNames, todos, setTodos, filter, setFilter
             key={i}
             name={name}
             data-pressed={name === filter}
-            onClick={(e) => setFilter(name)}
+            onClick={() => setFilter(name)}
         >
             {name}
         </button>

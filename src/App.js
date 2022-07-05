@@ -9,8 +9,13 @@ import Footer from "./components/Footer"
 
 const StyledApp = styled.div`
     max-width: 588px;
-    margin: 0 auto;
+    margin: 3rem auto 0;
     padding-inline: 1.5rem;
+
+    > div {
+        box-shadow: 0px 40px 60px -25px rgba(0, 0, 0, 0.1), 
+                    0px 20px 40px -25px rgba(0, 0, 0, 0.1);
+    }
 `
 
 const filterNames = {
@@ -44,25 +49,29 @@ export default function App() {
         <ThemeProvider theme={themeMode}>
             <GlobalStyles />
             <StyledApp>
-                <Header
-                    setTodos={setTodos}
-                    theme={theme}
-                    toggleTheme={setTheme}
-                />
+                <div>
+                    <Header
+                        setTodos={setTodos}
+                        theme={theme}
+                        toggleTheme={setTheme}
+                    />
 
-                <section>
-                    <ul>
-                        {todoElements}
-                    </ul>
-                </section>
+                    <section>
+                        <ul>
+                            {todoElements}
+                        </ul>
+                    </section>
 
-                <Footer
-                    filterNames={Object.keys(filterNames)}
-                    todos={todos}
-                    setTodos={setTodos}
-                    filter={filter}
-                    setFilter={setFilter}
-                />
+                    {todos.length !== 0 && 
+                        <Footer
+                            filterNames={Object.keys(filterNames)}
+                            todos={todos}
+                            setTodos={setTodos}
+                            filter={filter}
+                            setFilter={setFilter}
+                        />
+                    }
+                </div>
             </StyledApp>
         </ThemeProvider>
     );

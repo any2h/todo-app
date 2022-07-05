@@ -21,6 +21,7 @@ export const StyledTodo = styled.li`
         left: 0;
         width: 100%;
         border-bottom: 1px solid ${({theme}) => theme.borderColor};
+        transition: ${({theme}) => theme.transition};
     }
     
     > div {
