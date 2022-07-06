@@ -14,8 +14,10 @@ export default function Header({ todos, setTodos, theme, toggleTheme }) {
 
     function handleSubmit(e) {
         e.preventDefault()
-        setTodos(prevTodos => [...prevTodos, {id: nanoid(), value: todoName, isDone: false, isEditing: false}])
-        setTodoName('')
+        if (todoName !== '') {
+            setTodos(prevTodos => [...prevTodos, {id: nanoid(), value: todoName, isDone: false, isEditing: false}])
+            setTodoName('')
+        }
     }
 
     function toggleAllDone() {
