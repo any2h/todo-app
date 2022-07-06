@@ -17,6 +17,10 @@ export const GlobalStyles = createGlobalStyle`
         background-image: url(${props => props.theme.bgImage});
         background-repeat: no-repeat;
         background-position: top;
+
+        @media (max-width: 35em) {
+            font-size: 1rem;
+        }
     }
 
     ul {

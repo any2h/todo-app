@@ -3,6 +3,7 @@ import styled, { ThemeProvider } from 'styled-components'
 import { GlobalStyles } from "./components/styles/GlobalStyles"
 import { LightTheme, DarkTheme } from "./components/styles/Themes"
 import { useDarkMode } from "./components/useDarkMode"
+import { nanoid } from "nanoid"
 import Header from "./components/Header"
 import Todo from "./components/Todo"
 import Footer from "./components/Footer"
@@ -18,6 +19,13 @@ const StyledApp = styled.div`
     }
 `
 
+const defaultTodos = [
+    {id: nanoid(), value: 'Have breakfast', isDone: true, isEditing: false},
+    {id: nanoid(), value: 'Complete Todo App', isDone: true, isEditing: false},
+    {id: nanoid(), value: '10 minutes meditation', isDone: false, isEditing: false},
+    {id: nanoid(), value: 'Walk the dog', isDone: false, isEditing: false},
+]
+
 const filterNames = {
     All: () => true,
     Active: todo => !todo.isDone,
@@ -25,13 +33,10 @@ const filterNames = {
 }
 
 export default function App() {
-    const [todos, setTodos] = useState(() => JSON.parse(localStorage.getItem('todos')) || [])
+    const [todos, setTodos] = useState(() => JSON.parse(localStorage.getItem('todos')) || defaultTodos)
     const [filter, setFilter] = useState('All')
     const [theme, setTheme] = useDarkMode()
     const themeMode = theme === 'light' ? LightTheme : DarkTheme
-
-    console.log(todos)
-    console.log(filter)
 
     useEffect(() => {
         localStorage.setItem('todos', JSON.stringify(todos))
@@ -51,6 +56,7 @@ export default function App() {
             <StyledApp>
                 <div>
                     <Header
+                        todos={todos}
                         setTodos={setTodos}
                         theme={theme}
                         toggleTheme={setTheme}

@@ -1,11 +1,9 @@
 import styled from "styled-components";
 
 const SunIcon = styled.svg`
-    /* width: 36px; */
 `
 
 const MoonIcon = styled.svg`
-    /* width: 36px; */
 `
 
 const StyledThemeToggler = styled.button`

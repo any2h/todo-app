@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { StyledTodo } from "./styles/StyledTodo"
-import DeleteBtn from "./styles/DeleteBtn"
+import DeleteBtn from "./DeleteBtn"
+import Checkbox from "./Checkbox"
 
 export default function Todo({ id, value, isEditing, isDone, setTodos }) {
     const [newName, setNewName] = useState(value)
@@ -22,9 +23,11 @@ export default function Todo({ id, value, isEditing, isDone, setTodos }) {
     }
 
     function toggleEdit(id) {
-        setTodos(prevTodos => prevTodos.map(todo =>
-            todo.id === id ? {...todo, isEditing: !todo.isEditing} : todo
-        ))
+        if (!isDone) {
+            setTodos(prevTodos => prevTodos.map(todo =>
+                todo.id === id ? {...todo, isEditing: !todo.isEditing} : todo
+            ))
+        }
     }
 
     function toggleDone(id) {
@@ -36,11 +39,9 @@ export default function Todo({ id, value, isEditing, isDone, setTodos }) {
     return (
         <StyledTodo
             id={id}
-            onDoubleClick={() => toggleEdit(id)}
         >
             <div>
-                <input className="custom-checkbox" type="checkbox" checked={isDone}  />
-                <label onClick={() => toggleDone(id)}></label>
+                <Checkbox toggleDone={() => toggleDone(id)} isDone={isDone} />
                 {isEditing
                     ? 
                     <form onSubmit={(e) => editTodo(e, id)}>
@@ -50,7 +51,13 @@ export default function Todo({ id, value, isEditing, isDone, setTodos }) {
                         />
                     </form>
                     :
-                    <div style={{textDecoration: isDone && 'line-through', opacity: isDone && '.5'}}>{value}</div>
+                    <div style={{
+                        textDecoration: isDone && 'line-through',
+                        opacity: isDone && '.5'}}
+                        onDoubleClick={() => toggleEdit(id)}
+                    >
+                        {value}
+                    </div>
                 }
             </div>
 
