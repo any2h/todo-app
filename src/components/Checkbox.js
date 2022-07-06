@@ -4,6 +4,7 @@ const Input = styled.input`
     position: absolute;
     z-index: -1;
     opacity: 0;
+    appearance: none;
 
     &:checked+label::before {
         background-image: linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%));
