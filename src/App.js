@@ -42,9 +42,9 @@ export default function App() {
         localStorage.setItem('todos', JSON.stringify(todos))
     }, [todos])
 
-    const todoElements = todos.filter(filterNames[filter]).map((todo, i) => {
+    const todoElements = todos.filter(filterNames[filter]).map(todo => {
         return <Todo 
-                    key={i}
+                    key={todo.id}
                     {...todo}
                     setTodos={setTodos}
                 />
