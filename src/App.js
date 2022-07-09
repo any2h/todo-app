@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import styled, { ThemeProvider } from 'styled-components'
 import { GlobalStyles } from "./components/styles/GlobalStyles"
 import { LightTheme, DarkTheme } from "./components/styles/Themes"
-import { useDarkMode } from "./components/useDarkMode"
+import { useDarkMode } from "./hooks/useDarkMode"
 import { nanoid } from "nanoid"
 import Header from "./components/Header"
 import Todo from "./components/Todo"
@@ -16,6 +16,17 @@ const StyledApp = styled.div`
     > div {
         box-shadow: 0px 40px 60px -25px rgba(0, 0, 0, 0.1), 
                     0px 20px 40px -25px rgba(0, 0, 0, 0.1);
+    }
+
+    > p {
+        margin-top: 3rem;
+        text-align: center;
+        font-size: .875rem;
+        color: ${({theme}) => theme.footerFontColor};
+
+        @media (max-width: 35em) {
+            margin-top: 6rem;
+        }
     }
 `
 
@@ -78,6 +89,7 @@ export default function App() {
                         />
                     }
                 </div>
+                {todos.length !== 0 && <p>Double click on the task to edit</p>}
             </StyledApp>
         </ThemeProvider>
     );

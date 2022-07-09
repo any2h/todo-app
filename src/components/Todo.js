@@ -1,10 +1,13 @@
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { StyledTodo } from "./styles/StyledTodo"
+import { usePrevios } from "../hooks/usePrevious"
 import DeleteBtn from "./DeleteBtn"
 import Checkbox from "./Checkbox"
 
 export default function Todo({ id, value, isEditing, isDone, setTodos }) {
     const [newName, setNewName] = useState(value)
+    const inputRef = useRef(null)
+    const wasEditing = usePrevios(isEditing)
 
     function handleChange(e) {
         setNewName(e.target.value)
@@ -36,6 +39,26 @@ export default function Todo({ id, value, isEditing, isDone, setTodos }) {
         ))
     }
 
+    function turnEditingOff(e) {
+        if (e.target !== inputRef.current) {
+            setTodos(prevTodos => prevTodos.map(todo =>
+                todo.id === id ? {...todo, isEditing: !todo.isEditing} : todo
+            ))
+        }
+    }
+
+    useEffect(() => {
+        if (!wasEditing && isEditing) {
+            window.addEventListener('click', turnEditingOff)
+            inputRef.current.focus()
+        }
+
+        return () => {
+            window.removeEventListener('click', turnEditingOff)
+        }
+
+    }, [wasEditing, isEditing])
+
     return (
         <StyledTodo
             id={id}
@@ -46,6 +69,7 @@ export default function Todo({ id, value, isEditing, isDone, setTodos }) {
                     ? 
                     <form onSubmit={(e) => editTodo(e, id)}>
                         <input
+                            ref={inputRef}
                             value={newName}
                             onChange={handleChange}
                         />
