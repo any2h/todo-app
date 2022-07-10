@@ -39,22 +39,22 @@ export default function Todo({ id, value, isEditing, isDone, setTodos }) {
         ))
     }
 
-    function turnEditingOff(e) {
-        if (e.target !== inputRef.current) {
-            setTodos(prevTodos => prevTodos.map(todo =>
-                todo.id === id ? {...todo, isEditing: !todo.isEditing} : todo
-            ))
-        }
-    }
+    // function turnEditingOff(e) {
+    //     if (e.target !== inputRef.current) {
+    //         setTodos(prevTodos => prevTodos.map(todo =>
+    //             todo.id === id ? {...todo, isEditing: !todo.isEditing} : todo
+    //         ))
+    //     }
+    // }
 
     useEffect(() => {
         if (!wasEditing && isEditing) {
-            window.addEventListener('click', turnEditingOff)
+            // window.addEventListener('click', turnEditingOff)
             inputRef.current.focus()
         }
 
         return () => {
-            window.removeEventListener('click', turnEditingOff)
+            // window.removeEventListener('click', turnEditingOff)
         }
 
     }, [wasEditing, isEditing])
