@@ -40,6 +40,7 @@ export const StyledTodo = styled.li`
                 position: absolute;
                 width: 60%;
                 height: 100%;
+                margin-left: 2.75rem;
                 border: 0;
                 box-shadow: inset 0 -1px 5px 0 hsl(237,14%,26%);
             }
@@ -53,6 +54,7 @@ export const StyledTodo = styled.li`
 
     > button {
         opacity: 0;
+        height: 18px;
 
         @media (max-width: 35em) {
             opacity: 1;

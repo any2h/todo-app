@@ -20,14 +20,6 @@ export default function Todo({ id, name, completed, editTask, toggleTaskComplete
         setEditing(false)
     }
 
-    // function toggleEdit(id) {
-    //     if (!completed) {
-    //         setTodos(prevTodos => prevTodos.map(todo =>
-    //             todo.id === id ? {...todo, isEditing: !todo.isEditing} : todo
-    //         ))
-    //     }
-    // }
-
     // function turnEditingOff(e) {
     //     if (e.target !== inputRef.current) {
     //         setTodos(prevTodos => prevTodos.map(todo =>
@@ -75,25 +67,6 @@ export default function Todo({ id, name, completed, editTask, toggleTaskComplete
                         </div>
                     </>
                 }
-                
-                {/* {isEditing
-                    ? 
-                    <form onSubmit={handleSubmit}>
-                        <input
-                            ref={inputRef}
-                            value={newName}
-                            onChange={handleChange}
-                        />
-                    </form>
-                    :
-                    <div style={{
-                        textDecoration: completed && 'line-through',
-                        opacity: completed && '.5'}}
-                        onDoubleClick={() => setEditing(true)}
-                    >
-                        {value}
-                    </div>
-                } */}
             </div>
 
             <DeleteBtn onClick={() => deleteTask(id)} />

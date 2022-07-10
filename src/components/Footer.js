@@ -1,22 +1,6 @@
 import { StyledFooter } from "./styles/StyledFooter"
 
-export default function Footer({ filterNames, todos, setTodos, filter, setFilter }) {
-
-    const filterBtns = filterNames.map((name, i) =>
-        <button
-            key={i}
-            name={name}
-            data-pressed={name === filter}
-            onClick={() => setFilter(name)}
-        >
-            {name}
-        </button>
-    )
-
-    function clearCompleted() {
-        setTodos(prevTodos => prevTodos.filter(todo => todo.completed === false))
-    }
-
+export default function Footer({ clearCompleted, todos, children }) {
     const todoCount = todos.filter(todo => !todo.completed).length
     const todoDone = todos.filter(todo => todo.completed).length
     
@@ -24,7 +8,7 @@ export default function Footer({ filterNames, todos, setTodos, filter, setFilter
         <StyledFooter>
             <span>{todoCount} {todoCount === 1 ? 'item left' : 'items left'}</span>
             <div>
-                {filterBtns}
+                {children}
             </div>
             <button style={{opacity: todoDone && 1}} onClick={clearCompleted}>Clear Completed</button>
         </StyledFooter>

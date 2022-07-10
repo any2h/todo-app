@@ -11,6 +11,10 @@ export const StyledFooter = styled.footer`
     color: ${({theme}) => theme.footerFontColor};
     border-radius: 0 0 7.5px 7.5px;
 
+    /* > * {
+        flex: 1;
+    } */
+
     > div {
         display: flex;
         justify-content: center;

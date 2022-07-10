@@ -3,11 +3,11 @@ import styled, { ThemeProvider } from 'styled-components'
 import { GlobalStyles } from "./components/styles/GlobalStyles"
 import { LightTheme, DarkTheme } from "./components/styles/Themes"
 import { useDarkMode } from "./hooks/useDarkMode"
-import Checkbox from './components/Checkbox'
 import { nanoid } from "nanoid"
 import Header from "./components/Header"
 import Todo from "./components/Todo"
 import Footer from "./components/Footer"
+import TodoList from "./components/TodoList"
 
 const StyledApp = styled.div`
     max-width: 588px;
@@ -29,17 +29,6 @@ const StyledApp = styled.div`
             margin-top: 6rem;
         }
     }
-
-    section {
-        position: relative;
-
-        > div {
-            display: flex;
-            position: absolute;
-            top: -68px;
-            left: 24px;
-        }
-    }
 `
 
 const defaultTodos = [
@@ -56,11 +45,11 @@ const filterNames = {
 }
 
 export default function App() {
-    const [todos, setTodos] = useState(() => JSON.parse(localStorage.getItem('todos')) || defaultTodos)
-    const [filter, setFilter] = useState('All')
-    const allDone = todos.every(todo => todo.completed)
-    const [theme, setTheme] = useDarkMode()
-    const themeMode = theme === 'light' ? LightTheme : DarkTheme
+    const [todos, setTodos] = useState(() => JSON.parse(localStorage.getItem('todos')) || defaultTodos),
+        [filter, setFilter] = useState('All'),
+        allDone = todos.every(todo => todo.completed),
+        [theme, setTheme] = useDarkMode(),
+        themeMode = theme === 'light' ? LightTheme : DarkTheme;
 
     useEffect(() => {
         localStorage.setItem('todos', JSON.stringify(todos))
@@ -96,15 +85,30 @@ export default function App() {
                 ({...todo, completed: todo.completed = true})))
     }
 
-    const todoElements = todos.filter(filterNames[filter]).map(todo => {
-        return <Todo 
-                    key={todo.id}
-                    {...todo}
-                    editTask={editTask}
-                    toggleTaskCompleted={toggleTaskCompleted}
-                    deleteTask={deleteTask}
-                />
-    })
+    function clearCompleted() {
+        setTodos(prevTodos => prevTodos.filter(todo => todo.completed === false))
+    }
+
+    const todoElements = todos.filter(filterNames[filter]).map(todo => 
+        <Todo 
+            key={todo.id}
+            {...todo}
+            editTask={editTask}
+            toggleTaskCompleted={toggleTaskCompleted}
+            deleteTask={deleteTask}
+        />
+    )
+
+    const filterBtns = Object.keys(filterNames).map((name, i) =>
+        <button
+            key={i}
+            name={name}
+            data-pressed={name === filter}
+            onClick={() => setFilter(name)}
+        >
+            {name}
+        </button>
+    )
 
     return (
         <ThemeProvider theme={themeMode}>
@@ -117,23 +121,21 @@ export default function App() {
                         toggleTheme={setTheme}
                     />
 
-                    <section>
-                        {todos.length !== 0 && <div>
-                            <Checkbox toggleDone={toggleAllCompleted} completed={allDone}/>
-                        </div>}
-                        <ul>
-                            {todoElements}
-                        </ul>
-                    </section>
+                    <TodoList
+                        toggleAllCompleted={toggleAllCompleted}
+                        todosLength={todos.length}
+                        allDone={allDone}
+                    >
+                        {todoElements}
+                    </TodoList>
 
                     {todos.length !== 0 && 
                         <Footer
-                            filterNames={Object.keys(filterNames)}
                             todos={todos}
-                            setTodos={setTodos}
-                            filter={filter}
-                            setFilter={setFilter}
-                        />
+                            clearCompleted={clearCompleted}
+                        >
+                            {filterBtns}
+                        </Footer>
                     }
                 </div>
                 {todos.length !== 0 && <p>Double click on the task to edit</p>}
