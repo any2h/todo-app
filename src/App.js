@@ -3,6 +3,7 @@ import styled, { ThemeProvider } from 'styled-components'
 import { GlobalStyles } from "./components/styles/GlobalStyles"
 import { LightTheme, DarkTheme } from "./components/styles/Themes"
 import { useDarkMode } from "./hooks/useDarkMode"
+import Checkbox from './components/Checkbox'
 import { nanoid } from "nanoid"
 import Header from "./components/Header"
 import Todo from "./components/Todo"
@@ -28,24 +29,36 @@ const StyledApp = styled.div`
             margin-top: 6rem;
         }
     }
+
+    section {
+        position: relative;
+
+        > div {
+            display: flex;
+            position: absolute;
+            top: -68px;
+            left: 24px;
+        }
+    }
 `
 
 const defaultTodos = [
-    {id: nanoid(), value: 'Have breakfast', isDone: true, isEditing: false},
-    {id: nanoid(), value: 'Complete Todo App', isDone: true, isEditing: false},
-    {id: nanoid(), value: '10 minutes meditation', isDone: false, isEditing: false},
-    {id: nanoid(), value: 'Walk the dog', isDone: false, isEditing: false},
+    {id: nanoid(), name: 'Have breakfast', completed: true},
+    {id: nanoid(), name: 'Complete Todo App', completed: true},
+    {id: nanoid(), name: '10 minutes meditation', completed: false},
+    {id: nanoid(), name: 'Walk the dog', completed: false},
 ]
 
 const filterNames = {
     All: () => true,
-    Active: todo => !todo.isDone,
-    Completed: todo => todo.isDone
+    Active: todo => !todo.completed,
+    Completed: todo => todo.completed
 }
 
 export default function App() {
     const [todos, setTodos] = useState(() => JSON.parse(localStorage.getItem('todos')) || defaultTodos)
     const [filter, setFilter] = useState('All')
+    const allDone = todos.every(todo => todo.completed)
     const [theme, setTheme] = useDarkMode()
     const themeMode = theme === 'light' ? LightTheme : DarkTheme
 
@@ -53,11 +66,43 @@ export default function App() {
         localStorage.setItem('todos', JSON.stringify(todos))
     }, [todos])
 
+    function addTask(name) {
+        if (name) {
+            setTodos(prevTodos => [...prevTodos, {id: nanoid(), name, completed: false}])
+        }
+    }
+
+    function editTask(id, newName) {
+        setTodos(prevTodos => prevTodos.map(todo => 
+            todo.id === id ? {...todo, name: newName} : todo
+        ))
+    }
+
+    function toggleTaskCompleted(id) {
+        setTodos(prevTodos => prevTodos.map(todo =>
+            todo.id === id ? {...todo, completed: !todo.completed} : todo    
+        ))
+    }
+
+    function deleteTask(id) {
+        setTodos(prevTodos => prevTodos.filter(todo => todo.id !== id))
+    }
+
+    function toggleAllCompleted() {
+        allDone
+            ? setTodos(prevTodos => prevTodos.map(todo =>
+                ({...todo, completed: todo.completed = false}))) 
+            : setTodos(prevTodos => prevTodos.map(todo =>
+                ({...todo, completed: todo.completed = true})))
+    }
+
     const todoElements = todos.filter(filterNames[filter]).map(todo => {
         return <Todo 
                     key={todo.id}
                     {...todo}
-                    setTodos={setTodos}
+                    editTask={editTask}
+                    toggleTaskCompleted={toggleTaskCompleted}
+                    deleteTask={deleteTask}
                 />
     })
 
@@ -67,13 +112,15 @@ export default function App() {
             <StyledApp>
                 <div>
                     <Header
-                        todos={todos}
-                        setTodos={setTodos}
+                        addTask={addTask}
                         theme={theme}
                         toggleTheme={setTheme}
                     />
 
                     <section>
+                        {todos.length !== 0 && <div>
+                            <Checkbox toggleDone={toggleAllCompleted} completed={allDone}/>
+                        </div>}
                         <ul>
                             {todoElements}
                         </ul>

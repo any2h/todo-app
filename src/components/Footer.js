@@ -14,11 +14,11 @@ export default function Footer({ filterNames, todos, setTodos, filter, setFilter
     )
 
     function clearCompleted() {
-        setTodos(prevTodos => prevTodos.filter(todo => todo.isDone === false))
+        setTodos(prevTodos => prevTodos.filter(todo => todo.completed === false))
     }
 
-    const todoCount = todos.filter(todo => !todo.isDone).length
-    const todoDone = todos.filter(todo => todo.isDone).length
+    const todoCount = todos.filter(todo => !todo.completed).length
+    const todoDone = todos.filter(todo => todo.completed).length
     
     return (
         <StyledFooter>

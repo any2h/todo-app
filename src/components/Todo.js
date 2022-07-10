@@ -4,8 +4,9 @@ import { usePrevios } from "../hooks/usePrevious"
 import DeleteBtn from "./DeleteBtn"
 import Checkbox from "./Checkbox"
 
-export default function Todo({ id, value, isEditing, isDone, setTodos }) {
-    const [newName, setNewName] = useState(value)
+export default function Todo({ id, name, completed, editTask, toggleTaskCompleted, deleteTask }) {
+    const [newName, setNewName] = useState(name)
+    const [isEditing, setEditing] = useState(false)
     const inputRef = useRef(null)
     const wasEditing = usePrevios(isEditing)
 
@@ -13,31 +14,19 @@ export default function Todo({ id, value, isEditing, isDone, setTodos }) {
         setNewName(e.target.value)
     }
 
-    function editTodo(e, id) {
+    function handleSubmit(e) {
         e.preventDefault()
-        setTodos(prevTodos => prevTodos.map(todo => 
-            todo.id === id ? {...todo, value: newName} : todo
-        ))
-        toggleEdit(id)
+        editTask(id, newName)
+        setEditing(false)
     }
 
-    function deleteItem(id) {
-        setTodos(prevTodos => prevTodos.filter(todo => todo.id !== id))
-    }
-
-    function toggleEdit(id) {
-        if (!isDone) {
-            setTodos(prevTodos => prevTodos.map(todo =>
-                todo.id === id ? {...todo, isEditing: !todo.isEditing} : todo
-            ))
-        }
-    }
-
-    function toggleDone(id) {
-        setTodos(prevTodos => prevTodos.map(todo =>
-            todo.id === id ? {...todo, isDone: !todo.isDone} : todo    
-        ))
-    }
+    // function toggleEdit(id) {
+    //     if (!completed) {
+    //         setTodos(prevTodos => prevTodos.map(todo =>
+    //             todo.id === id ? {...todo, isEditing: !todo.isEditing} : todo
+    //         ))
+    //     }
+    // }
 
     // function turnEditingOff(e) {
     //     if (e.target !== inputRef.current) {
@@ -64,10 +53,32 @@ export default function Todo({ id, value, isEditing, isDone, setTodos }) {
             id={id}
         >
             <div>
-                <Checkbox toggleDone={() => toggleDone(id)} isDone={isDone} />
+                
                 {isEditing
                     ? 
-                    <form onSubmit={(e) => editTodo(e, id)}>
+                    <form onSubmit={handleSubmit}>
+                        <input
+                            ref={inputRef}
+                            value={newName}
+                            onChange={handleChange}
+                        />
+                    </form>
+                    :
+                    <>
+                        <Checkbox toggleDone={() => toggleTaskCompleted(id)} completed={completed} />
+                        <div style={{
+                            textDecoration: completed && 'line-through',
+                            opacity: completed && '.5'}}
+                            onDoubleClick={() => setEditing(true)}
+                        >
+                            {name}
+                        </div>
+                    </>
+                }
+                
+                {/* {isEditing
+                    ? 
+                    <form onSubmit={handleSubmit}>
                         <input
                             ref={inputRef}
                             value={newName}
@@ -76,16 +87,16 @@ export default function Todo({ id, value, isEditing, isDone, setTodos }) {
                     </form>
                     :
                     <div style={{
-                        textDecoration: isDone && 'line-through',
-                        opacity: isDone && '.5'}}
-                        onDoubleClick={() => toggleEdit(id)}
+                        textDecoration: completed && 'line-through',
+                        opacity: completed && '.5'}}
+                        onDoubleClick={() => setEditing(true)}
                     >
                         {value}
                     </div>
-                }
+                } */}
             </div>
 
-            <DeleteBtn onClick={() => deleteItem(id)} />
+            <DeleteBtn onClick={() => deleteTask(id)} />
         </StyledTodo> 
     )
 }
