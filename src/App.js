@@ -138,7 +138,7 @@ export default function App() {
                         </Footer>
                     }
                 </div>
-                {todos.length !== 0 && <p>Double click on the task to edit</p>}
+                {/* {todos.length !== 0 && <p>Double click on the task to edit</p>} */}
             </StyledApp>
         </ThemeProvider>
     );

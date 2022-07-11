@@ -1,7 +1,7 @@
 import { StyledTodoList } from "./styles/StyledTodoList"
 import Checkbox from "./Checkbox"
 
-export default function TodoList({todosLength, toggleAllCompleted, allDone, children}) {
+export default function TodoList({ todosLength, toggleAllCompleted, allDone, children }) {
     return (
         <StyledTodoList>
             {todosLength !== 0 &&

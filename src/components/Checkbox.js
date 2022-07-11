@@ -6,6 +6,11 @@ const Input = styled.input`
     opacity: 0;
     appearance: none;
 
+    &:checked+label {
+        text-decoration: line-through;
+        color: #7D80AA;
+    }
+
     &:checked+label::before {
         background-image: linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%));
     }
@@ -16,7 +21,7 @@ const Input = styled.input`
 
     &:not(:disabled):not(:checked)+label:hover::before {
         outline: 1px solid #8D82BE;
-    } 
+    }
 `
 
 const Label = styled.label`
@@ -48,11 +53,11 @@ const Label = styled.label`
     }
 `
 
-export default function Checkbox({toggleDone, completed}) {
+export default function Checkbox({toggleDone, completed, name}) {
   return (
     <>
         <Input type="checkbox" checked={completed} onChange={toggleDone} />
-        <Label onClick={toggleDone}></Label>
+        <Label onClick={toggleDone}>{name}</Label>
     </>
   )
 }

@@ -57,7 +57,10 @@ export default function Todo({ id, name, completed, editTask, toggleTaskComplete
                     </form>
                     :
                     <>
-                        <Checkbox toggleDone={() => toggleTaskCompleted(id)} completed={completed} />
+                        <Checkbox
+                            toggleDone={() => toggleTaskCompleted(id)}
+                            completed={completed}
+                        />
                         <div style={{
                             textDecoration: completed && 'line-through',
                             opacity: completed && '.5'}}
