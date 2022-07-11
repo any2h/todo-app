@@ -44,6 +44,6 @@ Users should be able to:
 ## Author
 
 <!-- - Website - [Add your name here](https://www.your-site.com) -->
-- Telegram - [any2h](https://t.me/any2h)
+- Telegram - [@any2h](https://t.me/any2h)
 - Twitter - [@steparik88](https://twitter.com/steparik88)
 - Frontend Mentor - [any2h](https://www.frontendmentor.io/profile/any2h)
