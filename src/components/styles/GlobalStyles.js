@@ -35,9 +35,7 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     input,
-    button,
-    textarea,
-    select {
+    button {
         font: inherit;
         color: inherit;
         background-color: ${({theme}) => theme.bgColor};
@@ -48,7 +46,7 @@ export const GlobalStyles = createGlobalStyle`
         outline: 0;
     }
 
-    input[type="checkbox"] {
+    input[type="checkbox"]+label {
         cursor: pointer;
     }
 

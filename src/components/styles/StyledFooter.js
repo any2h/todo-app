@@ -11,17 +11,28 @@ export const StyledFooter = styled.footer`
     color: ${({theme}) => theme.footerFontColor};
     border-radius: 0 0 7.5px 7.5px;
 
-    /* > * {
+    > * {
         flex: 1;
-    } */
+    }
 
     > div {
         display: flex;
         justify-content: center;
         gap: 1.25rem;
         padding-left: 2rem;
+    }
 
-        @media (max-width: 35em) {
+    > button {
+        padding-left: 3rem;
+        font-weight: 400;
+    }
+
+    @media (max-width: 35em) {
+        > * {
+            flex: initial;
+        }
+
+        > div {
             font-size: .9375rem;
             position: absolute;
             height: 48px;
@@ -34,9 +45,5 @@ export const StyledFooter = styled.footer`
             background-color: ${({theme}) => theme.bgColor};
             border-radius: 7.5px;
         }
-    }
-
-    > button {
-        font-weight: 400;
     }
 `

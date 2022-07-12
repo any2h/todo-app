@@ -53,11 +53,11 @@ const Label = styled.label`
     }
 `
 
-export default function Checkbox({toggleDone, completed, name}) {
+export default function Checkbox({toggleDone, completed}) {
   return (
     <>
         <Input type="checkbox" checked={completed} onChange={toggleDone} />
-        <Label onClick={toggleDone}>{name}</Label>
+        <Label onClick={toggleDone} />
     </>
   )
 }

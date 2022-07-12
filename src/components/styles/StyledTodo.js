@@ -24,6 +24,7 @@ export const StyledTodo = styled.li`
     }
     
     > div {
+        cursor: pointer;
         display: flex;
         width: 100%;
         gap: .5rem;
@@ -42,7 +43,7 @@ export const StyledTodo = styled.li`
                 height: 100%;
                 margin-left: 2.75rem;
                 border: 0;
-                box-shadow: inset 0 -1px 5px 0 hsl(237,14%,26%);
+                box-shadow: inset 0 -1px 5px 0 hsl(237, 14%, 36%);
             }
         }
 
