@@ -20,9 +20,9 @@ const StyledApp = styled.div`
     }
 
     > p {
-        margin-top: 3rem;
+        margin-top: 2rem;
         text-align: center;
-        font-size: .875rem;
+        font-size: .8125rem;
         color: ${({theme}) => theme.footerFontColor};
 
         @media (max-width: 35em) {
